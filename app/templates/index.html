@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="input-head">
+        <input id="inp" type="text">
+        <button id="btn">Add New Task</button>
+    </div>
+    <div class="container">
+
+            {% for task in tasks %}
+
+                <div class="card">
+                    <div class="card-header">
+                        Created {{ task.timestamp.strftime('%d.%m.%Y - %H:%M') }}
+                    </div>
+                    <div class="card-body">
+                        {{ task.task|capitalize }}
+                    </div>
+                    <div class="card-footer">
+                        <button>Mark Completed</button>
+                        <button>Delete</button>
+                    </div>
+                </div>
+
+            {% endfor %}            
+
+    </div>
+    <script>
+        const btn = document.querySelector('#btn')
+        const inp = document.querySelector('#inp')
+        const lst = document.querySelector('.container')
+        btn.addEventListener('click', () => {
+            let text = inp.value
+            if (text == '') {
+                alert('task cannot be empty')
+            } else {
+                sendNewData(text)
+            }
+        })
+
+        // function sendNewData(text) {
+        //     fetch('/add', {
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //             name: text
+        //         }) 
+        //     })
+        //     .then(response => response.json())
+        //     .then(json => console.log(json))
+        //     .catch(error => console.log(error))
+        // }
+        async function sendNewData(text) {
+            try {
+                const response = await fetch('/add', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({
+                        task: text
+                    })
+                })
+                const resp = await response.json();
+                console.log(resp)
+                addToList(text)
+            } catch(error) {
+                console.log('Fetch error: ', error);
+            }
+        }
+        function addToList(text) {
+            const newLi = document.createElement("li");
+            const newContent = document.createTextNode(text);
+            newLi.appendChild(newContent)
+            lst.appendChild(newLi)
+        }
+    </script>
+</body>
+</html>
