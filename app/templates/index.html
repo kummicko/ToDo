@@ -10,34 +10,177 @@
 </head>
 <body>
     <div class="input-head">
-        <input id="inp" type="text">
-        <button id="btn">Add New Task</button>
+        <div class="add-task">
+            <input id="inp" type="text" size="10">
+            <button id="addBtn" class="add-button">Add New Task</button>
+        </div>
+        <div class="change-view">
+            <button id="listViewButton"><span><svg
+                width="12"
+                height="12"
+                viewBox="0 0 63.499999 63.5"
+                version="1.1"
+                id="svg4435"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:svg="http://www.w3.org/2000/svg">
+               <defs
+                  id="defs4432" />
+               <rect
+                  style="display:inline;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.0264253;stroke-linecap:round;stroke-linejoin:round"
+                  id="rect294"
+                  width="63.473572"
+                  height="12.673574"
+                  x="0.01321263"
+                  y="0.01321263"
+                  rx="6.3473573"
+                  ry="6.3367872" />
+               <rect
+                  style="display:inline;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.0264253;stroke-linecap:round;stroke-linejoin:round"
+                  id="rect294-7"
+                  width="63.473572"
+                  height="12.673574"
+                  x="0.013212629"
+                  y="50.81321"
+                  rx="6.3473573"
+                  ry="6.3367872" />
+               <rect
+                  style="display:inline;fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.0264253;stroke-linecap:round;stroke-linejoin:round"
+                  id="rect294-6"
+                  width="63.473572"
+                  height="12.673574"
+                  x="0.01321263"
+                  y="25.413214"
+                  rx="6.3473573"
+                  ry="6.3367872" />
+             </svg></span> List</button>
+            <button id="gridViewButton"><span><svg
+                width="12"
+                height="12"
+                viewBox="0 0 63.500003 63.662607"
+                version="1.1"
+                id="svg4435"
+                sodipodi:docname="grid.svg"
+                inkscape:export-filename="grid.svg"
+                inkscape:export-xdpi="96"
+                inkscape:export-ydpi="96"
+                inkscape:version="1.2.2 (b0a8486541, 2022-12-01, custom)"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:svg="http://www.w3.org/2000/svg">
+               <defs
+                  id="defs4432" />
+               <rect
+                  style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                  id="rect342"
+                  width="23.843843"
+                  height="23.843845"
+                  x="1.3072443"
+                  y="1.4698552" />
+               <rect
+                  style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.12555;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                  id="rect1019"
+                  width="25.332779"
+                  height="25.332781"
+                  x="0.56277722"
+                  y="0.72538823"
+                  ry="4.7981277" />
+               <rect
+                  style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.12555;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                  id="rect1019-3"
+                  width="25.332779"
+                  height="25.332781"
+                  x="37.604443"
+                  y="0.56277722"
+                  ry="4.7981277" />
+               <rect
+                  style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                  id="rect342-6"
+                  width="23.845179"
+                  height="23.708475"
+                  x="1.3055398"
+                  y="36.021725" />
+               <rect
+                  style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.12555;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                  id="rect1019-7"
+                  width="25.332783"
+                  height="25.332783"
+                  x="0.56277686"
+                  y="37.604443"
+                  ry="4.7981281" />
+               <rect
+                  style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.12555;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                  id="rect1019-3-5"
+                  width="25.332783"
+                  height="25.332783"
+                  x="37.604443"
+                  y="37.604443"
+                  ry="4.7981281" />
+             </svg></span> Grid</button>
+        </div>
     </div>
     <div class="container">
 
+        <dialog id="updateDialog">
+            <form id="form" method="dialog">
+              <textarea name="" id="dialogText" cols="30" rows="10"></textarea>
+              <div class="dialog-buttons">
+                <button class="dialogBtn" id="cancelBtn" value="cancel">&#x2717; Cancel</button>
+                <button class="dialogBtn" id="confirmBtn" value="default">&#x2714; Confirm</button>
+              </div>
+            </form>
+        </dialog>
+
             {% for task in tasks %}
 
-                <div class="card">
+                <div class="card {% if task.complete == True %} completed-task {% endif %}">
                     <div class="card-header">
                         Created {{ task.timestamp.strftime('%d.%m.%Y - %H:%M') }}
                     </div>
-                    <div class="card-body">
+                    <div id="card-body{{ task.id }}" class="card-body {% if task.complete == True %} line-through {% endif %}">
                         {{ task.task|capitalize }}
                     </div>
                     <div class="card-footer">
-                        <button>Mark Completed</button>
-                        <button>Delete</button>
+                        {% if task.complete == False %}
+                        <button class="update-button" data-value="{{ task.id }}"><span>&#x270E;</span> Update</button>
+                        <button class="complete-button" data-value="{{ task.id }}"><span>&#x2714;</span> Mark Completed</button>
+                        {% else %}
+                        <button class="delete-button" data-value="{{ task.id }}"><span>&#x2717;</span> Delete</button>
+                        {% endif %}
                     </div>
                 </div>
 
-            {% endfor %}            
+            {% endfor %}
 
     </div>
     <script>
-        const btn = document.querySelector('#btn')
+        const addBtn = document.querySelector('#addBtn')
         const inp = document.querySelector('#inp')
-        const lst = document.querySelector('.container')
-        btn.addEventListener('click', () => {
+        let lst = document.querySelector('.container')
+        let markButtons = lst.querySelectorAll('.complete-button')
+        let deleteButtons = lst.querySelectorAll('.delete-button')
+        let updateButtons = lst.querySelectorAll('.update-button')
+        const listViewButton = document.querySelector('#listViewButton')
+        const gridViewButton = document.querySelector('#gridViewButton')
+        let cardsNode = document.querySelectorAll('.card')
+        let cards = Array.from(cardsNode)
+
+        gridViewButton.addEventListener('click', () => {
+            if(window.innerWidth > 600 && window.innerWidth < 900) {
+                lst.style.gridTemplateColumns = "1fr 1fr"
+                cards.forEach((card) => card.classList.remove('flex-card'))
+            }else if(window.innerWidth > 900) {
+                lst.style.gridTemplateColumns = "repeat(3, 1fr)"
+                cards.forEach((card) => card.classList.remove('flex-card'))
+            }
+        })
+
+        listViewButton.addEventListener('click', () => {
+            lst.style.gridTemplateColumns = "1fr";
+            cards.forEach((card) => card.classList.add('flex-card'))
+        })
+
+        addBtn.addEventListener('click', () => {
             let text = inp.value
             if (text == '') {
                 alert('task cannot be empty')
@@ -46,20 +189,97 @@
             }
         })
 
-        // function sendNewData(text) {
-        //     fetch('/add', {
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             name: text
-        //         }) 
-        //     })
-        //     .then(response => response.json())
-        //     .then(json => console.log(json))
-        //     .catch(error => console.log(error))
-        // }
+        markButtons.forEach( (markButton) => {
+            markButton.addEventListener('click', () => {
+                markTaskCompleted(markButton)
+            })
+        })
+
+        deleteButtons.forEach( (deleteButton) => {
+            deleteButton.addEventListener('click', () => {
+                deleteTask(deleteButton)
+            })
+        })
+
+        updateButtons.forEach( (updateButton) => {
+            updateButton.addEventListener('click', () => {
+                document.querySelector('#form').reset()
+                let text = updateButton.parentNode.previousElementSibling
+                document.querySelector('#dialogText').innerText = text.innerText
+                document.querySelector('#confirmBtn').dataset.id = updateButton.dataset.value
+                updateDialog.showModal();
+            })
+        })
+
+        updateDialog.addEventListener('close', function () {
+                updateTask()
+            });
+
+        function updateTask () {
+            let id = document.querySelector('#confirmBtn').dataset.id
+            let newText = document.querySelector('#dialogText').value
+            let body = document.querySelector(`#card-body${id}`)
+            updateTaskText(id, newText, body)
+        }
+
+        async function updateTaskText(id, newText, body) {
+            try {
+                const response = await fetch('/update_text', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: id,
+                        task: newText
+                    })
+                })
+                const resp = await response.json();
+                console.log(resp)
+                body.innerText = newText
+            } catch(error) {
+                console.log('Fetch error: ', error);
+            }
+        }
+
+        async function markTaskCompleted(markButton) {
+            try {
+                const response = await fetch('/mark_done', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: markButton.dataset.value
+                    })
+                })
+                const resp = await response.json();
+                console.log(resp)
+                createDeleteButton(markButton)
+            } catch(error) {
+                console.log('Fetch error: ', error);
+            }
+        }
+
+        async function deleteTask(deleteButton) {
+            try {
+                const response = await fetch('/delete', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'DELETE',
+                    body: JSON.stringify({
+                        id: deleteButton.dataset.value
+                    })
+                })
+                const resp = await response.json();
+                console.log(resp)
+                removeTask(deleteButton)
+            } catch(error) {
+                console.log('Fetch error: ', error);
+            }
+        }
+
         async function sendNewData(text) {
             try {
                 const response = await fetch('/add', {
@@ -73,17 +293,134 @@
                 })
                 const resp = await response.json();
                 console.log(resp)
-                addToList(text)
+                addToList(text, resp.id, resp.timestamp)
             } catch(error) {
                 console.log('Fetch error: ', error);
             }
         }
-        function addToList(text) {
-            const newLi = document.createElement("li");
-            const newContent = document.createTextNode(text);
-            newLi.appendChild(newContent)
-            lst.appendChild(newLi)
+
+        function addToList(text, id, timestamp) {
+            const container = document.querySelector('.container')
+            const card = document.createElement('div')
+            card.classList.add('card')
+            if(window.innerWidth > 600 && lst.style.gridTemplateColumns == "1fr"){
+                card.classList.add('flex-card')
+            }
+            const header = document.createElement('div')
+            header.classList.add('card-header')
+            header.innerHTML = `Created ${timestamp}`
+            const body = document.createElement('div')
+            body.innerHTML = text
+            body.id = `card-body${id}`
+            body.classList.add('card-body')
+            const footer = document.createElement('div')
+            footer.classList.add('card-footer')
+            const completeButton = document.createElement('button')
+            completeButton.innerHTML = '<span>&#x2714;</span> Mark Completed'
+            completeButton.dataset.value = id
+            completeButton.classList.add('complete-button')
+            completeButton.addEventListener('click', () => {
+                markTaskCompleted(completeButton)
+            })
+            const updateButton = document.createElement('button')
+            updateButton.innerHTML = '<span>&#x270E;</span> Update'
+            updateButton.dataset.value = id
+            updateButton.classList.add('update-button')
+            updateButton.addEventListener('click', () => {
+                document.querySelector('#form').reset()
+                let text = updateButton.parentNode.previousElementSibling
+                document.querySelector('#dialogText').innerText = text.innerText
+                document.querySelector('#confirmBtn').dataset.id = updateButton.dataset.value
+                updateDialog.showModal();
+            })
+            footer.appendChild(updateButton)
+            footer.appendChild(completeButton)
+            container.appendChild(card)
+            card.appendChild(header)
+            card.appendChild(body)
+            card.appendChild(footer)
+            cards.push(card)
         }
+
+        function createDeleteButton(markButton) {
+            const parent = markButton.parentNode
+            const id = markButton.dataset.value
+            const delButton = document.createElement("button");
+            delButton.innerHTML = '<span>&#x2717;</span> Delete'
+            delButton.classList.add('delete-button')
+            delButton.dataset.value = id;
+            delButton.addEventListener('click', () => {
+                deleteTask(delButton)
+            })
+            parent.previousElementSibling.classList.add('line-through')
+            markButton.previousElementSibling.style.display = 'none'
+            markButton.style.display = 'none'
+            parent.appendChild(delButton)
+            parent.parentNode.classList.add('completed-task')
+        }
+
+        function removeTask(deleteButton) {
+            let animatedCard = deleteButton.parentNode.parentNode
+            getAbsolutePosition()
+            freezeAll()
+            currIndex = cards.indexOf(animatedCard)
+            console.log(currIndex)
+            animatedCard.classList.add('zoom')
+            setTimeout(function() {
+                animatedCard.remove()
+                while(currIndex < cards.length - 1) {
+                    nextIndex = currIndex + 1
+                    cards[nextIndex].style.left = `${cards[currIndex].dataset.left}px`
+                    cards[nextIndex].style.top = `${cards[currIndex].dataset.top}px`
+                    currIndex ++
+                }
+            }, 300)
+            setTimeout(() => {
+                cards = cards.filter(card => card !== animatedCard)
+                removeAbsolutePosition()
+            }, 1200)
+        }
+
+        function getAbsolutePosition() {
+            cards.forEach((card) => {
+                card.dataset.left = card.getBoundingClientRect().left
+                card.dataset.top = card.getBoundingClientRect().top
+                card.dataset.width = card.getBoundingClientRect().width
+                card.dataset.height = card.getBoundingClientRect().height
+            })
+        }
+
+        function freezeAll() {
+            cards.forEach((card) => {
+                card.style.position = 'absolute'
+                card.style.left = `${card.dataset.left}px`
+                card.style.top = `${card.dataset.top}px`
+                card.style.width = `${card.dataset.width}px`
+                card.style.height = `${card.dataset.height}px`
+            })
+        }
+
+        function removeAbsolutePosition() {
+            cards.forEach((card) => {
+            card.style.position = 'static'
+            card.style.width = ''
+            card.style.height = ''
+            })
+        }
+
+        window.addEventListener('resize', function(event) {
+            if(window.innerWidth < 600){
+                lst.style.gridTemplateColumns = '1fr'
+                cards.forEach((card) => card.classList.remove('flex-card'))
+            }else if(window.innerWidth > 600 && window.innerWidth <900){
+                lst.style.gridTemplateColumns = '1fr 1fr'
+                cards.forEach((card) => card.classList.remove('flex-card'))
+            }else if(window.innerWidth > 900){
+                lst.style.gridTemplateColumns = '1fr 1fr 1fr'
+                cards.forEach((card) => card.classList.remove('flex-card'))
+            }
+        }, true);
+
     </script>
 </body>
 </html>

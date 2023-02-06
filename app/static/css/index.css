@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-body {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
     font-family: 'Lato', sans-serif;
 }
 
@@ -11,19 +14,71 @@ body {
     grid-template-columns: 1fr;
     gap: 0.6rem;
     width: 95%;
+    max-width: 1200px;
     margin: auto;
-}
-
-.input-head {
-    width: 95%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    margin-block: 1rem;
 }
 
 button {
     margin-left: 0.3rem;
+    border-radius: 4px;
+    cursor: pointer;
+    padding-inline: 0.5rem;
+}
+
+.input-head {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-block: 1rem;
+}
+
+.input-head input {
+    border: 1px solid rgb(57, 57, 255);
+    padding: 0.2rem;
+}
+
+.input-head input, button {
+    font-size: 0.95rem;
+    border-radius: 4px;
+}
+
+.add-task {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-task input {
+    flex: 1;
+}
+
+.add-task button {
+    white-space: nowrap;
+}
+
+.change-view {
+    display: none;
+    justify-content: center;
+}
+
+.change-view button {
+    display: flex;
+    font-size: 1rem;
+    font-weight: 300;
+    border: 1px solid rgb(195, 195, 195);
+    padding: 0.3rem;
+}
+
+.change-view button span{
+    margin-inline: 0.2rem;
+}
+
+.add-button {
+    background-color: rgb(57, 57, 255);
+    border: 1px solid rgb(54, 54, 125);
+    color:rgb(255, 255, 255);
 }
 
 .card {
@@ -31,7 +86,51 @@ button {
     border-radius: 0.5rem;
     border: 1px solid #909090;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    transition: all 1s;
+    display: flex;
+    flex-direction: column;
 }
+
+.flex-card {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex-card .card-header {
+    border-bottom: none;
+    border-right: 1px solid #bbbbbb;
+}
+
+.flex-card .card-body {
+    display: flex;
+    justify-content: center;
+    border-bottom: none;
+    border-right: 1px solid #bbbbbb;
+}
+
+.card.zoom {
+    animation: zoom forwards 700ms ease-out 1;
+}
+
+@keyframes zoom { 
+    0% {
+      transform: scale(1);
+      opacity: 1;
+      transform-origin: 50% 50%;
+    }
+    50% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      width: 0;
+      min-width: 0;
+      transform: scale(0);
+      opacity: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
 
 .card-header {
     padding: 0.6rem;
@@ -42,6 +141,7 @@ button {
 }
 
 .card-body {
+    flex: 1;
     padding: 0.6rem;
     border-bottom: 1px solid #bbbbbb;
     font-size: 1.2rem;
@@ -52,4 +152,81 @@ button {
     padding: 0.6rem;
     display: flex;
     justify-content: flex-end;
+}
+
+.complete-button {
+    background-color: rgb(1, 181, 1);
+    border: 1px solid rgb(2, 126, 2);
+    color: rgb(255, 255, 255);
+}
+
+.delete-button {
+    background-color: rgb(255, 49, 49);
+    border: 1px solid rgb(195, 15, 2);
+    color: rgb(255, 255, 255);
+}
+
+.update-button {
+    background-color: rgb(255, 152, 49);
+    border: 1px solid rgb(255, 120, 47);
+    color: rgb(255, 255, 255);
+}
+
+.completed-task {
+    background-color: rgb(230, 230, 230);
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+#updateDialog {
+    margin: auto;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #909090;
+    border-radius: 8px;
+}
+
+.dialog-buttons {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.dialogBtn {
+    padding: 0.5rem;
+    color: white;
+    border: 1px solid #909090;
+    border-radius: 4px;
+}
+
+#cancelBtn {
+    background-color: red;
+}
+
+#confirmBtn {
+    background-color: green;
+}
+
+@media only screen and (min-width: 600px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+    }
+    .change-view {
+        display: flex;
+    }
+    .add-task {
+        flex: 1;
+    }
+    .input-head {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
