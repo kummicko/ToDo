@@ -252,15 +252,19 @@ function removeAbsolutePosition() {
     })
 }
 
+widthBeforeResize = window.innerWidth
 window.addEventListener('resize', function(event) {
-    if(window.innerWidth < 600){
-        lst.style.gridTemplateColumns = '1fr'
-        cards.forEach((card) => card.classList.remove('flex-card'))
-    }else if(window.innerWidth > 600 && window.innerWidth <900){
-        lst.style.gridTemplateColumns = '1fr 1fr'
-        cards.forEach((card) => card.classList.remove('flex-card'))
-    }else if(window.innerWidth > 900){
-        lst.style.gridTemplateColumns = '1fr 1fr 1fr'
-        cards.forEach((card) => card.classList.remove('flex-card'))
+    if(this.window.innerWidth !== widthBeforeResize){
+        if(window.innerWidth < 600){
+            lst.style.gridTemplateColumns = '1fr'
+            cards.forEach((card) => card.classList.remove('flex-card'))
+        }else if(window.innerWidth > 600 && window.innerWidth <900){
+            lst.style.gridTemplateColumns = '1fr 1fr'
+            cards.forEach((card) => card.classList.remove('flex-card'))
+        }else if(window.innerWidth > 900){
+            lst.style.gridTemplateColumns = '1fr 1fr 1fr'
+            cards.forEach((card) => card.classList.remove('flex-card'))
+        }
+        widthBeforeResize = window.innerWidth
     }
 }, true);
